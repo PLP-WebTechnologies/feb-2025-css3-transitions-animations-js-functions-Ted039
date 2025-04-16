@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Webpage</title>
+    <style>
+        body { text-align: center; font-family: Arial, sans-serif; transition: background-color 0.5s; }
+        button {
+            background-color: blue;
+            color: white;
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.5s ease-in-out, transform 0.3s;
+        }
+        button:hover { background-color: red; transform: scale(1.1); }
+        @keyframes bounce {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0); }
+        }
+        .animated-image { animation: bounce 1s ease infinite; }
+        img { width: 150px; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h2>Interactive Webpage</h2>
+    <button id="animateBtn">Animate Image</button>
+    <button onclick="savePreference('lightblue')">Set Light Blue Theme</button>
+    <button onclick="savePreference('lightgreen')">Set Light Green Theme</button>
+
+    <img id="image" src="https://via.placeholder.com/150" alt="Placeholder Image">
+
+    <script>
+        // Save user preference
+        function savePreference(theme) {
+            localStorage.setItem("preferredTheme", theme);
+            document.body.style.backgroundColor = theme;
+        }
+
+        // Retrieve and apply user preference on reload
+        function applyPreference() {
+            let theme = localStorage.getItem("preferredTheme");
+            if (theme) {
+                document.body.style.backgroundColor = theme;
+            }
+        }
+
+        // Run when the page loads
+        window.onload = applyPreference;
+
+        // JavaScript to trigger animation
+        document.getElementById("animateBtn").addEventListener("click", function() {
+            let image = document.getElementById("image");
+            image.classList.toggle("animated-image");
+        });
+    </script>
+</body>
+</html>
